@@ -1,0 +1,60 @@
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.background"
+        renderscriptTargetApi 8
+        renderscriptSupportModeEnabled true
+        vectorDrawables {
+            useSupportLibrary true
+        }
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$versions.support"
+    implementation "com.android.support:support-v4:$versions.support"
+    implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "com.android.support.test:runner:$versions.atsl_runner"
+    androidTestImplementation "com.android.support.test:rules:$versions.atsl_runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+}
