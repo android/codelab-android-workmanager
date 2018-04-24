@@ -18,16 +18,19 @@ package com.example.background;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-
 import com.bumptech.glide.Glide;
+import androidx.work.Data;
+import androidx.work.WorkStatus;
 
 
 public class BlurActivity extends AppCompatActivity {
@@ -63,6 +66,58 @@ public class BlurActivity extends AppCompatActivity {
 
         // Setup blur image file button
         mGoButton.setOnClickListener(view -> mViewModel.applyBlur(getBlurLevel()));
+
+        // Setup view output image file button
+        mOutputButton.setOnClickListener(view -> {
+            Uri currentUri = mViewModel.getOutputUri();
+            if (currentUri != null) {
+                Intent actionView = new Intent(Intent.ACTION_VIEW, currentUri);
+                if (actionView.resolveActivity(getPackageManager()) != null) {
+                    startActivity(actionView);
+                }
+            }
+        });
+
+        // Hookup the Cancel button
+        mCancelButton.setOnClickListener(view -> mViewModel.cancelWork());
+
+
+        // Show work status
+        mViewModel.getOutputStatus().observe(this, listOfWorkStatuses -> {
+
+            // Note that these next few lines grab a single WorkStatus if it exists
+            // This code could be in a Transformation in the ViewModel; they are included here
+            // so that the entire process of displaying a WorkStatus is in one location.
+
+            // If there are no matching work statuses, do nothing
+            if (listOfWorkStatuses == null || listOfWorkStatuses.isEmpty()) {
+                return;
+            }
+
+            // We only care about the one output status.
+            // Every continuation has only one worker tagged TAG_OUTPUT
+            WorkStatus workStatus = listOfWorkStatuses.get(0);
+
+            boolean finished = workStatus.getState().isFinished();
+            if (!finished) {
+                showWorkInProgress();
+            } else {
+                showWorkFinished();
+
+                // Normally this processing, which is not directly related to drawing views on
+                // screen would be in the ViewModel. For simplicity we are keeping it here.
+                Data outputData = workStatus.getOutputData();
+
+                String outputImageUri =
+                        outputData.getString(Constants.KEY_IMAGE_URI, null);
+
+                // If there is an output file show "See File" button
+                if (!TextUtils.isEmpty(outputImageUri)) {
+                    mViewModel.setOutputUri(outputImageUri);
+                    mOutputButton.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     /**

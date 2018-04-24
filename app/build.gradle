@@ -47,8 +47,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "android.arch.work:work-runtime:$versions.work"
     implementation "com.android.support:appcompat-v7:$versions.support"
     implementation "com.android.support:support-v4:$versions.support"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
