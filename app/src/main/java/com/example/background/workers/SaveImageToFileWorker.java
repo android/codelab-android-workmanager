@@ -47,7 +47,7 @@ public class SaveImageToFileWorker extends Worker {
 
     @NonNull
     @Override
-    public WorkerResult doWork() {
+    public Result doWork() {
         Context applicationContext = getApplicationContext();
 
         // Makes a notification when the work starts and slows down the work so that it's easier to
@@ -65,16 +65,16 @@ public class SaveImageToFileWorker extends Worker {
                     resolver, bitmap, TITLE, DATE_FORMATTER.format(new Date()));
             if (TextUtils.isEmpty(imageUrl)) {
                 Log.e(TAG, "Writing to MediaStore failed");
-                return WorkerResult.FAILURE;
+                return Result.FAILURE;
             }
             Data output = new Data.Builder()
                     .putString(Constants.KEY_IMAGE_URI, imageUrl)
                     .build();
             setOutputData(output);
-            return WorkerResult.SUCCESS;
+            return Result.SUCCESS;
         } catch (Exception exception) {
             Log.e(TAG, "Unable to save image to Gallery", exception);
-            return WorkerResult.FAILURE;
+            return Result.FAILURE;
         }
     }
 }
