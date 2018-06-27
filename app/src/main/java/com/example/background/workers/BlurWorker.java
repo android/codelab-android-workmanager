@@ -37,7 +37,7 @@ public class BlurWorker extends Worker {
 
     @NonNull
     @Override
-    public WorkerResult doWork() {
+    public Result doWork() {
 
         Context applicationContext = getApplicationContext();
 
@@ -70,7 +70,7 @@ public class BlurWorker extends Worker {
                     Constants.KEY_IMAGE_URI, outputUri.toString()).build());
 
             // If there were no errors, return SUCCESS
-            return WorkerResult.SUCCESS;
+            return Result.SUCCESS;
         } catch (FileNotFoundException fileNotFoundException) {
             Log.e(TAG, "Failed to decode input stream", fileNotFoundException);
             throw new RuntimeException("Failed to decode input stream", fileNotFoundException);
@@ -79,7 +79,7 @@ public class BlurWorker extends Worker {
 
             // If there were errors, return FAILURE
             Log.e(TAG, "Error applying blur", throwable);
-            return WorkerResult.FAILURE;
+            return Result.FAILURE;
         }
     }
 }
