@@ -109,7 +109,7 @@ public class BlurActivity extends AppCompatActivity {
                 Data outputData = workStatus.getOutputData();
 
                 String outputImageUri =
-                        outputData.getString(Constants.KEY_IMAGE_URI, null);
+                        outputData.getString(Constants.KEY_IMAGE_URI);
 
                 // If there is an output file show "See File" button
                 if (!TextUtils.isEmpty(outputImageUri)) {
