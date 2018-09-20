@@ -30,8 +30,19 @@ import com.example.background.Constants;
 import java.io.FileNotFoundException;
 import androidx.work.Data;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 public class BlurWorker extends Worker {
+
+    /**
+     * Creates an instance of the {@link Worker}.
+     *
+     * @param appContext   the application {@link Context}
+     * @param workerParams the set of {@link WorkerParameters}
+     */
+    public BlurWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
+        super(appContext, workerParams);
+    }
 
     private static final String TAG = BlurWorker.class.getSimpleName();
 

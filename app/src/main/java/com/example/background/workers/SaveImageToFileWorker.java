@@ -34,11 +34,26 @@ import java.util.Locale;
 
 import androidx.work.Data;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
  * Saves the image to a permanent file
  */
 public class SaveImageToFileWorker extends Worker {
+
+    /**
+     * Creates an instance of the {@link Worker}.
+     *
+     * @param appContext   the application {@link Context}
+     * @param workerParams the set of {@link WorkerParameters}
+     */
+    public SaveImageToFileWorker(
+            @NonNull Context appContext,
+            @NonNull WorkerParameters workerParams
+    ) {
+        super(appContext, workerParams);
+    }
+
     private static final String TAG = SaveImageToFileWorker.class.getSimpleName();
 
     private static final String TITLE = "Blurred Image";

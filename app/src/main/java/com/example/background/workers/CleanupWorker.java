@@ -26,11 +26,23 @@ import com.example.background.Constants;
 import java.io.File;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
  * Cleans up temporary files generated during blurring process
  */
 public class CleanupWorker extends Worker {
+
+    /**
+     * Creates an instance of the {@link Worker}.
+     *
+     * @param appContext   the application {@link Context}
+     * @param workerParams the set of {@link WorkerParameters}
+     */
+    public CleanupWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
+        super(appContext, workerParams);
+    }
+
     private static final String TAG = CleanupWorker.class.getSimpleName();
 
     @NonNull

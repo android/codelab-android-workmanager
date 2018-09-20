@@ -29,4 +29,4 @@ versions.targetSdk = 27
 versions.support = "27.1.1"
 versions.constraint_layout = "1.1.3"
 versions.glide = "4.8.0"
-versions.work = "1.0.0-alpha08"
+versions.work = "1.0.0-alpha09"
