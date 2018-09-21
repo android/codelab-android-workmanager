@@ -9,3 +9,4 @@ build/
 .externalNativeBuild
 app/build
 build
+app/release/
