@@ -52,7 +52,7 @@ public class BlurViewModel extends ViewModel {
 
         // This transformation makes sure that whenever the current work Id changes the WorkStatus
         // the UI is listening to changes
-        mSavedWorkStatus = mWorkManager.getStatusesByTag(TAG_OUTPUT);
+        mSavedWorkStatus = mWorkManager.getStatusesByTagLiveData(TAG_OUTPUT);
     }
 
     /**
