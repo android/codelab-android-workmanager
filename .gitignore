@@ -1,5 +1,8 @@
 *.iml
+<<<<<<< HEAD
 secrets.txt
+=======
+>>>>>>> aa8a8ed... Porting WorkManager codelab to Kotlin
 .idea/
 .gradle
 /local.properties
@@ -9,4 +12,8 @@ build/
 .externalNativeBuild
 app/build
 build
+<<<<<<< HEAD
 app/release/
+=======
+app/release/
+>>>>>>> aa8a8ed... Porting WorkManager codelab to Kotlin

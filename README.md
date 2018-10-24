@@ -23,7 +23,6 @@ that need guaranteed execution. You can learn more by reading the
 or doing the
 [WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager).
 
-
 Pre-requisites
 --------------
 

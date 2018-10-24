@@ -37,8 +37,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BlurActivity">
-        </activity>
+        <activity android:name=".BlurActivity" />
 
     </application>
 
