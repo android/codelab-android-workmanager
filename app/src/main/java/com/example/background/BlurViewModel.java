@@ -33,7 +33,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkManager;
-import androidx.work.WorkStatus;
+import androidx.work.WorkInfo;
 
 import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
@@ -44,15 +44,15 @@ public class BlurViewModel extends ViewModel {
     private WorkManager mWorkManager;
     private Uri mImageUri;
     private Uri mOutputUri;
-    private LiveData<List<WorkStatus>> mSavedWorkStatus;
+    private LiveData<List<WorkInfo>> mSavedWorkInfo;
 
     public BlurViewModel() {
 
         mWorkManager = WorkManager.getInstance();
 
-        // This transformation makes sure that whenever the current work Id changes the WorkStatus
+        // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
-        mSavedWorkStatus = mWorkManager.getStatusesByTagLiveData(TAG_OUTPUT);
+        mSavedWorkInfo = mWorkManager.getWorkInfosByTagLiveData(TAG_OUTPUT);
     }
 
     /**
@@ -145,5 +145,5 @@ public class BlurViewModel extends ViewModel {
 
     Uri getOutputUri() { return mOutputUri; }
 
-    LiveData<List<WorkStatus>> getOutputStatus() { return mSavedWorkStatus; }
+    LiveData<List<WorkInfo>> getOutputStatus() { return mSavedWorkInfo; }
 }
