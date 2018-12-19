@@ -26,7 +26,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RadioGroup
-import androidx.work.WorkStatus
+import androidx.work.WorkInfo
 import com.bumptech.glide.Glide
 
 
@@ -59,7 +59,7 @@ class BlurActivity : AppCompatActivity() {
         setOnClickListeners()
 
         // Show work status
-        viewModel.outputStatus.observe(this, workStatusesObserver())
+        viewModel.outputWorkInfoItems.observe(this, workInfosObserver())
     }
 
     private fun bindResources() {
@@ -88,30 +88,28 @@ class BlurActivity : AppCompatActivity() {
         cancelButton.setOnClickListener { viewModel.cancelWork() }
     }
 
-    private fun workStatusesObserver(): Observer<List<WorkStatus>> {
-        return Observer { listOfWorkStatuses ->
+    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+        return Observer { listOfWorkInfo ->
 
-            // Note that these next few lines grab a single WorkStatus if it exists
+            // Note that these next few lines grab a single WorkInfo if it exists
             // This code could be in a Transformation in the ViewModel; they are included here
-            // so that the entire process of displaying a WorkStatus is in one location.
+            // so that the entire process of displaying a WorkInfo is in one location.
 
-            // If there are no matching work statuses, do nothing
-            if (listOfWorkStatuses == null || listOfWorkStatuses.isEmpty()) {
+            // If there are no matching work info, do nothing
+            if (listOfWorkInfo.isNullOrEmpty()) {
                 return@Observer
             }
 
             // We only care about the one output status.
             // Every continuation has only one worker tagged TAG_OUTPUT
-            val workStatus = listOfWorkStatuses[0]
+            val workInfo = listOfWorkInfo[0]
 
-            if (workStatus.state.isFinished) {
+            if (workInfo.state.isFinished) {
                 showWorkFinished()
 
                 // Normally this processing, which is not directly related to drawing views on
                 // screen would be in the ViewModel. For simplicity we are keeping it here.
-                val outputData = workStatus.getOutputData()
-
-                val outputImageUri = outputData.getString(KEY_IMAGE_URI)
+                val outputImageUri = workInfo.outputData.getString(KEY_IMAGE_URI)
 
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {

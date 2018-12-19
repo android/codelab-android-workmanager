@@ -54,10 +54,10 @@ class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params
                     }
                 }
             }
-            Result.SUCCESS
+            Result.success()
         } catch (exception: Exception) {
             Log.e(TAG, "Error cleaning up", exception)
-            Result.FAILURE
+            Result.failure()
         }
     }
 }

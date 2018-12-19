@@ -28,9 +28,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 
 /**
  * Saves the image to a permanent file
@@ -58,18 +58,16 @@ class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx
             val imageUrl = MediaStore.Images.Media.insertImage(
                     resolver, bitmap, Title, dateFormatter.format(Date()))
             if (!imageUrl.isNullOrEmpty()) {
-                val output = Data.Builder()
-                        .putString(KEY_IMAGE_URI, imageUrl)
-                        .build()
-                outputData = output
-                Result.SUCCESS
+                val output = workDataOf(KEY_IMAGE_URI to imageUrl)
+
+                Result.success(output)
             } else {
                 Log.e(TAG, "Writing to MediaStore failed")
-                Result.FAILURE
+                Result.failure()
             }
         } catch (exception: Exception) {
             Log.e(TAG, "Unable to save image to Gallery", exception)
-            Result.FAILURE
+            Result.failure()
         }
     }
 }

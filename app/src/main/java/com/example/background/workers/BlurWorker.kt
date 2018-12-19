@@ -27,6 +27,7 @@ import java.io.FileNotFoundException
 import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 
 class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
@@ -41,20 +42,20 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
         sleep()
 
         return try {
-            createBlurredBitmap(appContext, inputData.getString(KEY_IMAGE_URI))
-            Result.SUCCESS
+            val outputData = createBlurredBitmap(appContext, inputData.getString(KEY_IMAGE_URI))
+            Result.success(outputData)
         } catch (fileNotFoundException: FileNotFoundException) {
             Log.e(TAG, "Failed to decode input stream", fileNotFoundException)
             throw RuntimeException("Failed to decode input stream", fileNotFoundException)
         } catch (throwable: Throwable) {
             // If there were errors, return FAILURE
             Log.e(TAG, "Error applying blur", throwable)
-            Result.FAILURE
+            Result.failure()
         }
     }
 
     @Throws(FileNotFoundException::class, IllegalArgumentException::class)
-    private fun createBlurredBitmap(appContext: Context, resourceUri: String?) {
+    private fun createBlurredBitmap(appContext: Context, resourceUri: String?): Data {
         if (resourceUri.isNullOrEmpty()) {
             Log.e(TAG, "Invalid input uri")
             throw IllegalArgumentException("Invalid input uri")
@@ -73,7 +74,6 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
         val outputUri = writeBitmapToFile(appContext, output)
 
         // Return the output for the temp file
-        outputData = Data.Builder().putString(KEY_IMAGE_URI, outputUri.toString()
-        ).build()
+        return workDataOf(KEY_IMAGE_URI to outputUri.toString())
     }
 }

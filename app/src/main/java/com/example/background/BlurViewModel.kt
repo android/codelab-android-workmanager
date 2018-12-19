@@ -30,19 +30,19 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import androidx.work.WorkStatus
+import androidx.work.WorkInfo
 
 class BlurViewModel : ViewModel() {
 
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
-    internal val outputStatus: LiveData<List<WorkStatus>>
+    internal val outputWorkInfoItems: LiveData<List<WorkInfo>>
     private val workManager: WorkManager = WorkManager.getInstance()
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkStatus
         // the UI is listening to changes
-        outputStatus = workManager.getStatusesByTagLiveData(TAG_OUTPUT)
+        outputWorkInfoItems = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
     }
 
     /**
