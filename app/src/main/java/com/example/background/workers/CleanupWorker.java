@@ -71,10 +71,10 @@ public class CleanupWorker extends Worker {
                     }
                 }
             }
-            return Worker.Result.SUCCESS;
+            return Result.success();
         } catch (Exception exception) {
             Log.e(TAG, "Error cleaning up", exception);
-            return Worker.Result.FAILURE;
+            return Result.failure();
         }
     }
 }

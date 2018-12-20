@@ -30,7 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import com.bumptech.glide.Glide;
 import androidx.work.Data;
-import androidx.work.WorkStatus;
+import androidx.work.WorkInfo;
 
 
 public class BlurActivity extends AppCompatActivity {
@@ -83,22 +83,22 @@ public class BlurActivity extends AppCompatActivity {
 
 
         // Show work status
-        mViewModel.getOutputStatus().observe(this, listOfWorkStatuses -> {
+        mViewModel.getOutputWorkInfo().observe(this, listOfWorkInfo -> {
 
-            // Note that these next few lines grab a single WorkStatus if it exists
+            // Note that these next few lines grab a single WorkInfo if it exists
             // This code could be in a Transformation in the ViewModel; they are included here
-            // so that the entire process of displaying a WorkStatus is in one location.
+            // so that the entire process of displaying a WorkInfo is in one location.
 
-            // If there are no matching work statuses, do nothing
-            if (listOfWorkStatuses == null || listOfWorkStatuses.isEmpty()) {
+            // If there are no matching work info, do nothing
+            if (listOfWorkInfo == null || listOfWorkInfo.isEmpty()) {
                 return;
             }
 
             // We only care about the one output status.
             // Every continuation has only one worker tagged TAG_OUTPUT
-            WorkStatus workStatus = listOfWorkStatuses.get(0);
+            WorkInfo workInfo = listOfWorkInfo.get(0);
 
-            boolean finished = workStatus.getState().isFinished();
+            boolean finished = workInfo.getState().isFinished();
             if (!finished) {
                 showWorkInProgress();
             } else {
@@ -106,7 +106,7 @@ public class BlurActivity extends AppCompatActivity {
 
                 // Normally this processing, which is not directly related to drawing views on
                 // screen would be in the ViewModel. For simplicity we are keeping it here.
-                Data outputData = workStatus.getOutputData();
+                Data outputData = workInfo.getOutputData();
 
                 String outputImageUri =
                         outputData.getString(Constants.KEY_IMAGE_URI);

@@ -77,11 +77,11 @@ public class BlurWorker extends Worker {
             Uri outputUri = WorkerUtils.writeBitmapToFile(applicationContext, output);
 
             // Return the output for the temp file
-            setOutputData(new Data.Builder().putString(
-                    Constants.KEY_IMAGE_URI, outputUri.toString()).build());
+            Data outputData = new Data.Builder().putString(
+                    Constants.KEY_IMAGE_URI, outputUri.toString()).build();
 
             // If there were no errors, return SUCCESS
-            return Worker.Result.SUCCESS;
+            return Result.success(outputData);
         } catch (FileNotFoundException fileNotFoundException) {
             Log.e(TAG, "Failed to decode input stream", fileNotFoundException);
             throw new RuntimeException("Failed to decode input stream", fileNotFoundException);
@@ -90,7 +90,7 @@ public class BlurWorker extends Worker {
 
             // If there were errors, return FAILURE
             Log.e(TAG, "Error applying blur", throwable);
-            return Worker.Result.FAILURE;
+            return Result.failure();
         }
     }
 }

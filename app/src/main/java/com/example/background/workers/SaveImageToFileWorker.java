@@ -80,16 +80,15 @@ public class SaveImageToFileWorker extends Worker {
                     resolver, bitmap, TITLE, DATE_FORMATTER.format(new Date()));
             if (TextUtils.isEmpty(imageUrl)) {
                 Log.e(TAG, "Writing to MediaStore failed");
-                return Worker.Result.FAILURE;
+                return Result.failure();
             }
-            Data output = new Data.Builder()
+            Data outputData = new Data.Builder()
                     .putString(Constants.KEY_IMAGE_URI, imageUrl)
                     .build();
-            setOutputData(output);
-            return Worker.Result.SUCCESS;
+            return Result.success(outputData);
         } catch (Exception exception) {
             Log.e(TAG, "Unable to save image to Gallery", exception);
-            return Worker.Result.FAILURE;
+            return Result.failure();
         }
     }
 }
