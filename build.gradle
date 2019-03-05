@@ -5,19 +5,19 @@ buildscript {
     versions.compileSdk = 28
     versions.minSdk = 16
     versions.targetSdk = 27
-    versions.kotlin = '1.3.20'
+    versions.kotlin = '1.3.21'
     versions.androidx = "1.0.2"
     versions.androidx_legacy = "1.0.0"
     versions.constraint_layout = "2.0.0-alpha3"
     versions.glide = "4.8.0"
-    versions.work = "1.0.0-beta03"
+    versions.work = "1.0.0"
 
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
 }
