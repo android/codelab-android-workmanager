@@ -27,7 +27,6 @@ android {
         }
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        buildToolsVersion "28.0.3"
         versionCode 1
         versionName "1.0"
     }
@@ -45,9 +44,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "android.arch.work:work-runtime:$versions.work"
     implementation "androidx.appcompat:appcompat:1.1.0-alpha02"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
+    implementation "androidx.work:work-runtime:$versions.work"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
 }
