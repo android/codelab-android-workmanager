@@ -10,7 +10,7 @@ buildscript {
     versions.androidx_legacy = "1.0.0"
     versions.constraint_layout = "2.0.0-alpha3"
     versions.glide = "4.8.0"
-    versions.work = "1.0.0"
+    versions.work = "2.0.0-rc01"
 
     repositories {
         google()
