@@ -30,7 +30,6 @@ android {
         }
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        buildToolsVersion "28.0.3"
         versionCode 1
         versionName "1.0"
     }
@@ -44,19 +43,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    // Workaround for WorkManager 1.0.0-alpha9
-    // From: https://developer.android.com/jetpack/docs/release-notes
-    packagingOptions {
-        exclude 'META-INF/proguard/androidx-annotations.pro'
-    }
 }
 
 dependencies {
-    implementation "android.arch.work:work-runtime-ktx:$versions.work"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
     implementation "androidx.legacy:legacy-support-v4:$versions.androidx_legacy"
+    implementation "androidx.work:work-runtime-ktx:$versions.work"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }
