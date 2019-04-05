@@ -16,7 +16,7 @@
 
 package com.example.background;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 import android.net.Uri;
 import android.text.TextUtils;
 
