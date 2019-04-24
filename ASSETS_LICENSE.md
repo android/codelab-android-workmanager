@@ -4,7 +4,7 @@ The licenses for the asset files included in this demo can be found below.
 
 ## test.png
 
-Retreived from [https://www.ars.usda.gov/oc/images/photos/jun04/k11252-1/](https://www.ars.usda.gov/oc/images/photos/jun04/k11252-1/) on 28 April 2018.
+Retrieved from [https://www.ars.usda.gov/oc/images/photos/jun04/k11252-1/](https://www.ars.usda.gov/oc/images/photos/jun04/k11252-1/) on 28 April 2018.
 
 Photo courtesy of USDA Agricultural Research Service
 
@@ -17,3 +17,4 @@ When using these photos, we ask that you credit the Agricultural Research Servic
 Photo by (photographer's name), USDA Agricultural Research Service.
 Photo courtesy of USDA Agricultural Research Service.
 Photo courtesy of USDA ARS.
+
