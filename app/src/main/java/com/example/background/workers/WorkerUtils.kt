@@ -31,8 +31,15 @@ import androidx.renderscript.Allocation
 import androidx.renderscript.Element
 import androidx.renderscript.RenderScript
 import androidx.renderscript.ScriptIntrinsicBlur
-import android.util.Log
-import com.example.background.*
+import com.example.background.CHANNEL_ID
+import com.example.background.DELAY_TIME_MILLIS
+import com.example.background.NOTIFICATION_ID
+import com.example.background.NOTIFICATION_TITLE
+import com.example.background.OUTPUT_PATH
+import com.example.background.R
+import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
+import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_NAME
+import timber.log.Timber
 
 import java.io.File
 import java.io.FileNotFoundException
@@ -88,7 +95,7 @@ fun sleep() {
     try {
         Thread.sleep(DELAY_TIME_MILLIS, 0)
     } catch (e: InterruptedException) {
-        Log.e("WorkerUtils", e.message)
+        Timber.e(e)
     }
 
 }

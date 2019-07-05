@@ -19,7 +19,6 @@ package com.example.background.workers
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Log
 
 import com.example.background.KEY_IMAGE_URI
 
@@ -28,10 +27,9 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import timber.log.Timber
 
 class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-
-    private val TAG by lazy { BlurWorker::class.java.simpleName }
 
     override fun doWork(): Result {
         val appContext = applicationContext
@@ -45,11 +43,11 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
             val outputData = createBlurredBitmap(appContext, inputData.getString(KEY_IMAGE_URI))
             Result.success(outputData)
         } catch (fileNotFoundException: FileNotFoundException) {
-            Log.e(TAG, "Failed to decode input stream", fileNotFoundException)
+            Timber.e(fileNotFoundException)
             throw RuntimeException("Failed to decode input stream", fileNotFoundException)
         } catch (throwable: Throwable) {
             // If there were errors, return FAILURE
-            Log.e(TAG, "Error applying blur", throwable)
+            Timber.e(throwable)
             Result.failure()
         }
     }
@@ -57,7 +55,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     @Throws(FileNotFoundException::class, IllegalArgumentException::class)
     private fun createBlurredBitmap(appContext: Context, resourceUri: String?): Data {
         if (resourceUri.isNullOrEmpty()) {
-            Log.e(TAG, "Invalid input uri")
+            Timber.e("Invalid input uri")
             throw IllegalArgumentException("Invalid input uri")
         }
 

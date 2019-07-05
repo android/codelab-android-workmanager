@@ -26,16 +26,12 @@ import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-
 import java.util.Arrays
+import timber.log.Timber
 
 class SelectImageActivity : AppCompatActivity() {
-
-    private val TAG by lazy { SelectImageActivity::class.java.simpleName }
-
     private val REQUEST_CODE_IMAGE = 100
     private val REQUEST_CODE_PERMISSIONS = 101
 
@@ -135,10 +131,10 @@ class SelectImageActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_IMAGE -> data?.let { handleImageRequestResult(data) }
-                else -> Log.d(TAG, "Unknown request code.")
+                else -> Timber.d("Unknown request code.")
             }
         } else {
-            Log.e(TAG, String.format("Unexpected Result code %s", resultCode))
+            Timber.e("Unexpected Result code $resultCode")
         }
     }
 
@@ -149,7 +145,7 @@ class SelectImageActivity : AppCompatActivity() {
         } ?: intent.data
 
         if (imageUri == null) {
-            Log.e(TAG, "Invalid input image Uri.")
+            Timber.e("Invalid input image Uri.")
             return
         }
 
