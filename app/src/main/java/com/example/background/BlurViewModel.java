@@ -16,8 +16,11 @@
 
 package com.example.background;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+
+import android.app.Application;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -39,16 +42,16 @@ import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
 import static com.example.background.Constants.TAG_OUTPUT;
 
-public class BlurViewModel extends ViewModel {
+public class BlurViewModel extends AndroidViewModel {
 
     private WorkManager mWorkManager;
     private Uri mImageUri;
     private Uri mOutputUri;
     private LiveData<List<WorkInfo>> mSavedWorkInfo;
 
-    public BlurViewModel() {
-
-        mWorkManager = WorkManager.getInstance();
+    public BlurViewModel(@NonNull Application application) {
+        super(application);
+        mWorkManager = WorkManager.getInstance(application);
 
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
