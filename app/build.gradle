@@ -28,6 +28,13 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
@@ -43,13 +50,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$versions.androidx"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
-    implementation "androidx.legacy:legacy-support-v4:$versions.androidx_legacy"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     implementation "androidx.work:work-runtime-ktx:$versions.work"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.jakewharton.timber:timber:$versions.timber"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+
+    androidTestImplementation "androidx.arch.core:core-testing:$versions.androidxArch"
+    androidTestImplementation "androidx.test.ext:junit:$versions.junit"
+    androidTestImplementation "androidx.test:rules:$versions.test_rules"
+    androidTestImplementation "androidx.test:runner:$versions.test_runner"
+    androidTestImplementation "androidx.work:work-testing:$versions.work"
 }

@@ -16,11 +16,12 @@
 
 package com.example.background
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
 import android.net.Uri
+import androidx.lifecycle.AndroidViewModel
 
 
-class BlurViewModel : ViewModel() {
+class BlurViewModel(application: Application) : AndroidViewModel(application) {
 
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
