@@ -16,15 +16,18 @@
 
 package com.example.background;
 
-import androidx.lifecycle.ViewModel;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import android.app.Application;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class BlurViewModel extends ViewModel {
+public class BlurViewModel extends AndroidViewModel {
 
     private Uri mImageUri;
 
-    public BlurViewModel() {
+    public BlurViewModel(@NonNull Application application) {
+        super(application);
     }
 
     /**

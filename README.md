@@ -1,13 +1,15 @@
 WorkManager Codelab
 ===================================
 
-This repository contains the code for the [WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager):
+This repository contains the code for the
+[WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager):
 
 Kotlin version
 --------------
 
-The Kotlin version of this codelab is available under the `Kotlin` branch of
-this repository.
+The Kotlin version of this codelab is available under the
+[`Kotlin`](https://github.com/googlecodelabs/android-workmanager/tree/kotlin) branch of this
+repository.
 
 Introduction
 ------------
@@ -22,7 +24,6 @@ that need guaranteed execution. You can learn more by reading the
 [WorkManager Reference](https://developer.android.com/reference/androidx/work/package-summary)
 or doing the
 [WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager).
-
 
 Pre-requisites
 --------------
