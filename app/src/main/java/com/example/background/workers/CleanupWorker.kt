@@ -17,7 +17,6 @@
 package com.example.background.workers
 
 import android.content.Context
-import android.util.Log
 
 import com.example.background.OUTPUT_PATH
 
@@ -25,13 +24,12 @@ import java.io.File
 
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import timber.log.Timber
 
 /**
  * Cleans up temporary files generated during blurring process
  */
 class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-
-    private val TAG by lazy { CleanupWorker::class.java.simpleName }
 
     override fun doWork(): Result {
 
@@ -49,14 +47,14 @@ class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params
                         val name = entry.name
                         if (name.isNotEmpty() && name.endsWith(".png")) {
                             val deleted = entry.delete()
-                            Log.i(TAG, String.format("Deleted %s - %s", name, deleted))
+                            Timber.i("Deleted $name - $deleted")
                         }
                     }
                 }
             }
             Result.success()
-        } catch (exception: Exception) {
-            Log.e(TAG, "Error cleaning up", exception)
+        } catch (e: Exception) {
+            Timber.e(e)
             Result.failure()
         }
     }

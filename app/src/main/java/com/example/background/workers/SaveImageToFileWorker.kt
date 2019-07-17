@@ -20,7 +20,6 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 
 import com.example.background.KEY_IMAGE_URI
 
@@ -31,13 +30,13 @@ import java.util.Locale
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import timber.log.Timber
 
 /**
  * Saves the image to a permanent file
  */
 class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
-    private val TAG by lazy { SaveImageToFileWorker::class.java.simpleName }
     private val Title = "Blurred Image"
     private val dateFormatter = SimpleDateFormat(
             "yyyy.MM.dd 'at' HH:mm:ss z",
@@ -62,11 +61,11 @@ class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx
 
                 Result.success(output)
             } else {
-                Log.e(TAG, "Writing to MediaStore failed")
+                Timber.e("Writing to MediaStore failed")
                 Result.failure()
             }
-        } catch (exception: Exception) {
-            Log.e(TAG, "Unable to save image to Gallery", exception)
+        } catch (e: Exception) {
+            Timber.e("Unable to save image to Gallery $e")
             Result.failure()
         }
     }

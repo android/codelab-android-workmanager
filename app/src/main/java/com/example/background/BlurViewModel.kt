@@ -16,14 +16,11 @@
 
 package com.example.background
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
 import android.net.Uri
 
-import com.example.background.workers.BlurWorker
-import com.example.background.workers.CleanupWorker
-import com.example.background.workers.SaveImageToFileWorker
-
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
@@ -32,12 +29,16 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.WorkInfo
 
-class BlurViewModel : ViewModel() {
+import com.example.background.workers.BlurWorker
+import com.example.background.workers.CleanupWorker
+import com.example.background.workers.SaveImageToFileWorker
+
+class BlurViewModel(application: Application) : AndroidViewModel(application) {
 
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
     internal val outputWorkInfoItems: LiveData<List<WorkInfo>>
-    private val workManager: WorkManager = WorkManager.getInstance()
+    private val workManager: WorkManager = WorkManager.getInstance(application)
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkStatus
