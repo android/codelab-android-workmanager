@@ -37,7 +37,7 @@ const val OUTPUT_PATH = "blur_filter_outputs"
 const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
 const val TAG_OUTPUT = "OUTPUT"
 
-const val DELAY_TIME_MILLIS: Long = 100
+const val DELAY_TIME_MILLIS: Long = 300
 
 // Progress Data Key
 const val PROGRESS = "PROGRESS"

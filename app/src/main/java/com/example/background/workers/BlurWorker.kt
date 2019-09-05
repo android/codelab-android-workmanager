@@ -38,7 +38,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
         // Makes a notification when the work starts and slows down the work so that it's easier to
         // see each WorkRequest start, even on emulated devices
         makeStatusNotification("Blurring image", appContext)
-        (0..99).forEach {
+        (0..100 step 20).forEach {
             setProgressAsync(workDataOf(PROGRESS to it))
             sleep()
         }
