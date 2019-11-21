@@ -26,8 +26,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RadioGroup
-import android.widget.TextView
-import androidx.work.Data
 import androidx.work.WorkInfo
 import com.bumptech.glide.Glide
 
@@ -147,7 +145,6 @@ class BlurActivity : AppCompatActivity() {
      * Shows and hides views for when the Activity is processing an image
      */
     private fun showWorkInProgress() {
-        progressBar.progress = 0
         progressBar.visibility = View.VISIBLE
         cancelButton.visibility = View.VISIBLE
         goButton.visibility = View.GONE
