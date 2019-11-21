@@ -158,6 +158,7 @@ class BlurActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
         cancelButton.visibility = View.GONE
         goButton.visibility = View.VISIBLE
+        progressBar.progress = 0
     }
 
     private val blurLevel: Int
