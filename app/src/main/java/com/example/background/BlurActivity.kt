@@ -59,7 +59,10 @@ class BlurActivity : AppCompatActivity() {
         setOnClickListeners()
 
         // Show work status
-        viewModel.outputWorkInfoItems.observe(this, workInfosObserver())
+        viewModel.outputWorkInfoItems.observe(this, outputObserver())
+
+        // Show work progress
+        viewModel.progressWorkInfoItems.observe(this, progressObserver())
     }
 
     private fun bindResources() {
@@ -88,7 +91,23 @@ class BlurActivity : AppCompatActivity() {
         cancelButton.setOnClickListener { viewModel.cancelWork() }
     }
 
-    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+    private fun progressObserver(): Observer<List<WorkInfo>> {
+        return Observer { listOfWorkInfo ->
+            if (listOfWorkInfo.isNullOrEmpty()) {
+                return@Observer
+            }
+
+            listOfWorkInfo.forEach { workInfo ->
+                if (WorkInfo.State.RUNNING == workInfo.state) {
+                    val progress = workInfo.progress.getInt(PROGRESS, 0)
+                    progressBar.progress = progress
+                }
+            }
+
+        }
+    }
+
+    private fun outputObserver(): Observer<List<WorkInfo>> {
         return Observer { listOfWorkInfo ->
 
             // Note that these next few lines grab a single WorkInfo if it exists
@@ -139,6 +158,7 @@ class BlurActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
         cancelButton.visibility = View.GONE
         goButton.visibility = View.VISIBLE
+        progressBar.progress = 0
     }
 
     private val blurLevel: Int

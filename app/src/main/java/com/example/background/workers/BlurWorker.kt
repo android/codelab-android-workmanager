@@ -27,6 +27,7 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.example.background.PROGRESS
 import timber.log.Timber
 
 class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
@@ -37,7 +38,10 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
         // Makes a notification when the work starts and slows down the work so that it's easier to
         // see each WorkRequest start, even on emulated devices
         makeStatusNotification("Blurring image", appContext)
-        sleep()
+        (0..100 step 20).forEach {
+            setProgressAsync(workDataOf(PROGRESS to it))
+            sleep()
+        }
 
         return try {
             val outputData = createBlurredBitmap(appContext, inputData.getString(KEY_IMAGE_URI))
