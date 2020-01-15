@@ -32,14 +32,14 @@ buildscript {
     versions.test_runner = "1.1.0-beta02"
     versions.timber = "4.7.1"
     versions.truth = "0.42"
-    versions.work = "2.3.0-beta01"
+    versions.work = "2.3.0-rc01"
 
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.6.0-rc01'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
 }
