@@ -12,16 +12,15 @@ this repository.
 Introduction
 ------------
 
-At I/O 2018 Google annouced [Android Jetpack](https://developer.android.com//jetpack/),
+At I/O 2018 Google annouced [Android Jetpack](https://d.android.com//jetpack/),
 a collection of libraries, tools and architectural guidance to accelerate and simplify the
 development of great Android apps. One of those libraries is the
-[WorkManager library](https://developer.android.com/topic/libraries/architecture/workmanager/).
+[WorkManager library](https://d.android.com/topic/libraries/architecture/workmanager/).
 The WorkManager library provides a unified API for deferrable one-off or recurring background tasks
 that need guaranteed execution. You can learn more by reading the
-[WorkManager Guide](https://developer.android.com/topic/libraries/architecture/workmanager/), the
-[WorkManager Reference](https://developer.android.com/reference/androidx/work/package-summary)
-or doing the
-[WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager).
+[WorkManager Guide](https://d.android.com/topic/libraries/architecture/workmanager/), the
+[WorkManager Reference](https://d.android.com/reference/androidx/work/package-summary) or doing the
+[WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager-kt).
 
 Pre-requisites
 --------------
