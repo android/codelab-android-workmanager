@@ -19,7 +19,8 @@ development of great Android apps. One of those libraries is the
 The WorkManager library provides a unified API for deferrable one-off or recurring background tasks
 that need guaranteed execution. You can learn more by reading the
 [WorkManager Guide](https://d.android.com/topic/libraries/architecture/workmanager/), the
-[WorkManager Reference](https://d.android.com/reference/androidx/work/package-summary) or doing the
+[WorkManager Reference](https://d.android.com/kotlin/reference/androidx/work/package-summary) or
+doing the
 [WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager-kt).
 
 Pre-requisites
