@@ -16,34 +16,25 @@
 
 package com.example.background
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.work.WorkInfo
 import com.bumptech.glide.Glide
-
+import com.example.background.databinding.ActivityBlurBinding
 
 class BlurActivity : AppCompatActivity() {
 
     private lateinit var viewModel: BlurViewModel
-    private lateinit var imageView: ImageView
-    private lateinit var progressBar: ProgressBar
-    private lateinit var goButton: Button
-    private lateinit var outputButton: Button
-    private lateinit var cancelButton: Button
-    private lateinit var radioGroup: RadioGroup
+    private lateinit var binding: ActivityBlurBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_blur)
-        bindResources()
+        binding = ActivityBlurBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Get the ViewModel
         viewModel = ViewModelProviders.of(this).get(BlurViewModel::class.java)
@@ -52,7 +43,7 @@ class BlurActivity : AppCompatActivity() {
         val imageUriExtra = intent.getStringExtra(KEY_IMAGE_URI)
         viewModel.setImageUri(imageUriExtra)
         viewModel.imageUri?.let { imageUri ->
-            Glide.with(this).load(imageUri).into(imageView)
+            Glide.with(this).load(imageUri).into(binding.imageView)
         }
 
         // Setup blur image file button
@@ -65,20 +56,11 @@ class BlurActivity : AppCompatActivity() {
         viewModel.progressWorkInfoItems.observe(this, progressObserver())
     }
 
-    private fun bindResources() {
-        imageView = findViewById(R.id.image_view)
-        progressBar = findViewById(R.id.progress_bar)
-        goButton = findViewById(R.id.go_button)
-        outputButton = findViewById(R.id.see_file_button)
-        cancelButton = findViewById(R.id.cancel_button)
-        radioGroup = findViewById(R.id.radio_blur_group)
-    }
-
     private fun setOnClickListeners() {
-        goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
+        binding.goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
 
         // Setup view output image file button
-        outputButton.setOnClickListener {
+        binding.seeFileButton.setOnClickListener {
             viewModel.outputUri?.let { currentUri ->
                 val actionView = Intent(Intent.ACTION_VIEW, currentUri)
                 actionView.resolveActivity(packageManager)?.run {
@@ -88,7 +70,7 @@ class BlurActivity : AppCompatActivity() {
         }
 
         // Hookup the Cancel button
-        cancelButton.setOnClickListener { viewModel.cancelWork() }
+        binding.cancelButton.setOnClickListener { viewModel.cancelWork() }
     }
 
     private fun progressObserver(): Observer<List<WorkInfo>> {
@@ -100,7 +82,7 @@ class BlurActivity : AppCompatActivity() {
             listOfWorkInfo.forEach { workInfo ->
                 if (WorkInfo.State.RUNNING == workInfo.state) {
                     val progress = workInfo.progress.getInt(PROGRESS, 0)
-                    progressBar.progress = progress
+                    binding.progressBar.progress = progress
                 }
             }
 
@@ -133,7 +115,7 @@ class BlurActivity : AppCompatActivity() {
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {
                     viewModel.setOutputUri(outputImageUri as String)
-                    outputButton.visibility = View.VISIBLE
+                    binding.seeFileButton.visibility = View.VISIBLE
                 }
             } else {
                 showWorkInProgress()
@@ -145,25 +127,29 @@ class BlurActivity : AppCompatActivity() {
      * Shows and hides views for when the Activity is processing an image
      */
     private fun showWorkInProgress() {
-        progressBar.visibility = View.VISIBLE
-        cancelButton.visibility = View.VISIBLE
-        goButton.visibility = View.GONE
-        outputButton.visibility = View.GONE
+        with(binding) {
+            progressBar.visibility = View.VISIBLE
+            cancelButton.visibility = View.VISIBLE
+            goButton.visibility = View.GONE
+            seeFileButton.visibility = View.GONE
+        }
     }
 
     /**
      * Shows and hides views for when the Activity is done processing an image
      */
     private fun showWorkFinished() {
-        progressBar.visibility = View.GONE
-        cancelButton.visibility = View.GONE
-        goButton.visibility = View.VISIBLE
-        progressBar.progress = 0
+        with(binding) {
+            progressBar.visibility = View.GONE
+            cancelButton.visibility = View.GONE
+            goButton.visibility = View.VISIBLE
+            progressBar.progress = 0
+        }
     }
 
     private val blurLevel: Int
         get() =
-            when (radioGroup.checkedRadioButtonId) {
+            when (binding.radioBlurGroup.checkedRadioButtonId) {
                 R.id.radio_blur_lv_1 -> 1
                 R.id.radio_blur_lv_2 -> 2
                 R.id.radio_blur_lv_3 -> 3

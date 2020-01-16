@@ -23,12 +23,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.widget.Toast
 import com.example.background.databinding.ActivitySelectBinding
 import java.util.Arrays
 import timber.log.Timber
@@ -46,7 +44,6 @@ class SelectImageActivity : AppCompatActivity() {
     )
 
     private var permissionRequestCount: Int = 0
-    private lateinit var selectImageButton: Button
 
     private lateinit var binding: ActivitySelectBinding
 
@@ -99,7 +96,7 @@ class SelectImageActivity : AppCompatActivity() {
                         R.string.set_permissions_in_settings,
                         Toast.LENGTH_LONG
                 ).show()
-                selectImageButton.isEnabled = false
+                binding.selectImage.isEnabled = false
             }
         }
     }
@@ -131,6 +128,7 @@ class SelectImageActivity : AppCompatActivity() {
 
     /** Image Selection  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_IMAGE -> data?.let { handleImageRequestResult(data) }

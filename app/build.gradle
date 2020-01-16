@@ -20,7 +20,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.background"
         renderscriptTargetApi 11
@@ -35,8 +35,8 @@ android {
         // that the app's state is completely cleared between tests.
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion 16
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -59,17 +59,17 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
     implementation "androidx.work:work-runtime-ktx:$versions.work"
-    implementation "com.github.bumptech.glide:glide:$versions.glide"
-    implementation "com.jakewharton.timber:timber:$versions.timber"
+    implementation "com.github.bumptech.glide:glide:4.10.0"
+    implementation "com.jakewharton.timber:timber:4.7.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
-    androidTestImplementation "androidx.arch.core:core-testing:$versions.androidxArch"
-    androidTestImplementation "androidx.test.ext:junit:$versions.junit"
-    androidTestImplementation "androidx.test:rules:$versions.test_rules"
-    androidTestImplementation "androidx.test:runner:$versions.test_runner"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test:rules:1.2.0"
+    androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.work:work-testing:$versions.work"
 }
