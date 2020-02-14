@@ -44,6 +44,6 @@ class WorkManagerTestRule : TestWatcher() {
 
         // Initialize WorkManager for instrumentation tests.
         WorkManagerTestInitHelper.initializeTestWorkManager(targetContext, configuration)
-        workManager = WorkManager.getInstance()
+        workManager = WorkManager.getInstance(targetContext)
     }
 }
