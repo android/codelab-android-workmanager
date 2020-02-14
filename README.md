@@ -7,8 +7,8 @@ This repository contains the code for the
 Java version
 --------------
 
-The Java version of this codelab is available under the `Java` branch of
-this repository.
+The Java version of this codelab is available under the
+[`Master`](https://github.com/googlecodelabs/android-workmanager/) branch of this repository.
 
 Introduction
 ------------
