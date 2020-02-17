@@ -13,7 +13,7 @@ The Java version of this codelab is available under the
 Introduction
 ------------
 
-At I/O 2018 Google annouced [Android Jetpack](https://d.android.com//jetpack/),
+At I/O 2018 Google announced [Android Jetpack](https://d.android.com//jetpack/),
 a collection of libraries, tools and architectural guidance to accelerate and simplify the
 development of great Android apps. One of those libraries is the
 [WorkManager library](https://d.android.com/topic/libraries/architecture/workmanager/).
