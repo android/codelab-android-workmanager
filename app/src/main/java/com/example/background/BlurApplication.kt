@@ -14,30 +14,20 @@
  * limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.example.background
 
-buildscript {
-    ext.versions = [:]
-    versions.kotlin = '1.3.61'
-    versions.work = "2.3.2"
+import android.app.Application
+import androidx.work.Configuration
+import timber.log.Timber
 
-    repositories {
-        google()
-        jcenter()
+class BlurApplication() : Application(), Configuration.Provider {
+    override fun getWorkManagerConfiguration() =
+            Configuration.Builder()
+                    .setMinimumLoggingLevel(android.util.Log.DEBUG)
+                    .build()
+
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
