@@ -1,20 +1,20 @@
 WorkManager Codelab
 ===================================
 
-This repository contains the code for the
-[WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager):
+This repository contains the code for the Java version of the
+[WorkManager Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager-java):
 
 Kotlin version
 --------------
 
 The Kotlin version of this codelab is available under the
-[`Kotlin`](https://github.com/googlecodelabs/android-workmanager/tree/kotlin) branch of this
+[`Master`](https://github.com/googlecodelabs/android-workmanager/) branch of this
 repository.
 
 Introduction
 ------------
 
-At I/O 2018 Google annouced [Android Jetpack](https://developer.android.com//jetpack/),
+At I/O 2018 Google announced [Android Jetpack](https://developer.android.com//jetpack/),
 a collection of libraries, tools and architectural guidance to accelerate and simplify the
 development of great Android apps. One of those libraries is the
 [WorkManager library](https://developer.android.com/topic/libraries/architecture/workmanager/).
@@ -28,7 +28,7 @@ or doing the
 Pre-requisites
 --------------
 
-* Android Studio 3.1 or later and you know how to use it.
+* Android Studio 3.6 or later and you know how to use it.
 
 * Make sure Android Studio is updated, as well as your SDK and Gradle.
 Otherwise, you may have to wait for a while until all the updates are done.
@@ -52,20 +52,6 @@ if you don't already have it.
 2. Download the sample.
 2. Import the sample into Android Studio.
 3. Build and run the sample.
-
-Notes
------
-
-On Android Studio 3.1, when opening the project, you may see the error:
-
-> Configuration on demand is not supported by the current version of the Android
-Gradle plugin since you are using Gradle version 4.6 or above. Suggestion:
-disable configuration on demand by setting `org.gradle.configureondemand=false`
-in your gradle.properties file or use a Gradle version less than 4.6.
-
-This is a known issue with the Android Gradle Plugin 3.0.x and 3.1.x. [You can
-follow this workaround to fix the
-issue.](https://developer.android.com/studio/known-issues#known_issues_with_the_android_gradle_plugin)
 
 License
 -------

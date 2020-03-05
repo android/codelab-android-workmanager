@@ -23,14 +23,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
-
+import com.example.background.databinding.ActivitySelectBinding;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,11 +50,13 @@ public class SelectImageActivity extends AppCompatActivity {
     );
 
     private int mPermissionRequestCount;
+    private ActivitySelectBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select);
+        binding = ActivitySelectBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (savedInstanceState != null) {
             mPermissionRequestCount =
@@ -65,7 +67,7 @@ public class SelectImageActivity extends AppCompatActivity {
         requestPermissionsIfNecessary();
 
         // Create request to get image from filesystem when button clicked
-        findViewById(R.id.selectImage).setOnClickListener(view -> {
+        binding.selectImage.setOnClickListener(view -> {
             Intent chooseIntent = new Intent(
                     Intent.ACTION_PICK,
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -97,7 +99,7 @@ public class SelectImageActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, R.string.set_permissions_in_settings,
                         Toast.LENGTH_LONG).show();
-                findViewById(R.id.selectImage).setEnabled(false);
+                binding.selectImage.setEnabled(false);
             }
         }
     }
@@ -130,6 +132,8 @@ public class SelectImageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_IMAGE:
