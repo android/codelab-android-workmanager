@@ -21,27 +21,41 @@ import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import com.example.background.workers.BlurWorker;
 import com.example.background.workers.CleanupWorker;
 import com.example.background.workers.SaveImageToFileWorker;
+import java.util.List;
 import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
+import static com.example.background.Constants.TAG_OUTPUT;
 
 public class BlurViewModel extends AndroidViewModel {
 
     private Uri mImageUri;
     private WorkManager mWorkManager;
+    private LiveData<List<WorkInfo>> mSavedWorkInfo;
 
     // BlurViewModel constructor
     public BlurViewModel(@NonNull Application application) {
         super(application);
         mWorkManager = WorkManager.getInstance(application);
+
+        // This transformation makes sure that whenever the current work Id changes the WorkInfo
+        // the UI is listening to changes
+        mSavedWorkInfo = mWorkManager.getWorkInfosByTagLiveData(TAG_OUTPUT);
     }
+
+    /**
+     * Getter method for mSavedWorkInfo
+      */
+    LiveData<List<WorkInfo>> getOutputWorkInfo() { return mSavedWorkInfo; }
 
     /**
      * Create the WorkRequest to apply the blur and save the resulting image
@@ -71,6 +85,7 @@ public class BlurViewModel extends AndroidViewModel {
 
         // Add WorkRequest to save the image to the filesystem
         OneTimeWorkRequest save = new OneTimeWorkRequest.Builder(SaveImageToFileWorker.class)
+                .addTag(TAG_OUTPUT) // This adds the tag
                 .build();
         continuation = continuation.then(save);
 
