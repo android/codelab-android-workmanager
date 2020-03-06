@@ -107,6 +107,13 @@ public class BlurViewModel extends AndroidViewModel {
     }
 
     /**
+     * Cancel work using the work's unique name
+     */
+    void cancelWork() {
+        mWorkManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME);
+    }
+
+    /**
      * Creates the input data bundle which includes the Uri to operate on
      * @return Data which contains the Image Uri as a String
      */
