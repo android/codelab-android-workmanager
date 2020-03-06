@@ -49,6 +49,10 @@ public class BlurWorker extends Worker {
 
         Context applicationContext = getApplicationContext();
 
+        // Makes a notification when the work starts and slows down the work so that it's easier to
+        // see each WorkRequest start, even on emulated devices
+        WorkerUtils.makeStatusNotification("Blurring image", applicationContext);
+        WorkerUtils.sleep();
         String resourceUri = getInputData().getString(KEY_IMAGE_URI);
 
         try {
@@ -68,9 +72,6 @@ public class BlurWorker extends Worker {
 
             // Write bitmap to a temp file
             Uri outputUri = WorkerUtils.writeBitmapToFile(applicationContext, output);
-
-            WorkerUtils.makeStatusNotification("Output is "
-                    + outputUri.toString(), applicationContext);
 
             Data outputData = new Data.Builder()
                     .putString(KEY_IMAGE_URI, outputUri.toString())
