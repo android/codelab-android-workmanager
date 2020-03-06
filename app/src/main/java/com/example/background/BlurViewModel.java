@@ -22,13 +22,14 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkManager;
 import com.example.background.workers.BlurWorker;
 import com.example.background.workers.CleanupWorker;
 import com.example.background.workers.SaveImageToFileWorker;
-
+import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
 
 public class BlurViewModel extends AndroidViewModel {
@@ -48,7 +49,10 @@ public class BlurViewModel extends AndroidViewModel {
      */
     void applyBlur(int blurLevel) {
         // Add WorkRequest to Cleanup temporary images
-        WorkContinuation continuation = mWorkManager.beginWith(OneTimeWorkRequest.from(CleanupWorker.class));
+        WorkContinuation continuation = mWorkManager
+                .beginUniqueWork(IMAGE_MANIPULATION_WORK_NAME,
+                        ExistingWorkPolicy.REPLACE,
+                        OneTimeWorkRequest.from(CleanupWorker.class));
 
         // Add WorkRequests to blur the image the number of times requested
         for (int i = 0; i < blurLevel; i++) {
