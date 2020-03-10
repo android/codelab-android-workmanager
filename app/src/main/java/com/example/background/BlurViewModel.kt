@@ -26,6 +26,12 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
 
+    /**
+     * Create the WorkRequest to apply the blur and save the resulting image
+     * @param blurLevel The amount to blur the image
+     */
+    fun applyBlur(blurLevel: Int) {}
+
     private fun uriOrNull(uriString: String?): Uri? {
         return if (!uriString.isNullOrEmpty()) {
             Uri.parse(uriString)
