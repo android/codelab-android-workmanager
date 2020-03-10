@@ -23,18 +23,15 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
-import android.widget.Button
-import android.widget.Toast
-
+import com.example.background.databinding.ActivitySelectBinding
 import java.util.Arrays
+import timber.log.Timber
 
 class SelectImageActivity : AppCompatActivity() {
-
-    private val TAG by lazy { SelectImageActivity::class.java.simpleName }
 
     private val REQUEST_CODE_IMAGE = 100
     private val REQUEST_CODE_PERMISSIONS = 101
@@ -48,13 +45,12 @@ class SelectImageActivity : AppCompatActivity() {
     )
 
     private var permissionRequestCount: Int = 0
-    private lateinit var selectImageButton: Button
+    private lateinit var binding: ActivitySelectBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select)
-
-        selectImageButton = findViewById(R.id.selectImage)
+        binding = ActivitySelectBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         savedInstanceState?.let {
             permissionRequestCount = it.getInt(KEY_PERMISSIONS_REQUEST_COUNT, 0)
@@ -64,7 +60,7 @@ class SelectImageActivity : AppCompatActivity() {
         requestPermissionsIfNecessary()
 
         // Create request to get image from filesystem when button clicked
-        selectImageButton.setOnClickListener {
+        binding.selectImage.setOnClickListener {
             val chooseIntent = Intent(
                     Intent.ACTION_PICK,
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -100,7 +96,7 @@ class SelectImageActivity : AppCompatActivity() {
                         R.string.set_permissions_in_settings,
                         Toast.LENGTH_LONG
                 ).show()
-                selectImageButton.isEnabled = false
+                binding.selectImage.isEnabled = false
             }
         }
     }
@@ -132,13 +128,15 @@ class SelectImageActivity : AppCompatActivity() {
 
     /** Image Selection  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_IMAGE -> data?.let { handleImageRequestResult(data) }
-                else -> Log.d(TAG, "Unknown request code.")
+                else -> Timber.d("Unknown request code.")
             }
         } else {
-            Log.e(TAG, String.format("Unexpected Result code %s", resultCode))
+            Timber.e(String.format("Unexpected Result code %s", resultCode))
         }
     }
 
@@ -149,7 +147,7 @@ class SelectImageActivity : AppCompatActivity() {
         } ?: intent.data
 
         if (imageUri == null) {
-            Log.e(TAG, "Invalid input image Uri.")
+            Timber.e("Invalid input image Uri.")
             return
         }
 
