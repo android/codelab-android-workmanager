@@ -17,9 +17,9 @@
 package com.example.background.workers
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import android.graphics.BitmapFactory
 import com.example.background.R
 import timber.log.Timber
 
