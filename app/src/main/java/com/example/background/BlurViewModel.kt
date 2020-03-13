@@ -43,6 +43,10 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
         outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
     }
 
+    internal fun cancelWork() {
+        workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
+    }
+
     /**
      * Creates the input data bundle which includes the Uri to operate on
      * @return Data which contains the Image Uri as a String
