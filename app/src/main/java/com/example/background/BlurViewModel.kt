@@ -37,11 +37,13 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
     internal var outputUri: Uri? = null
     private val workManager = WorkManager.getInstance(application)
     internal val outputWorkInfos: LiveData<List<WorkInfo>>
+    internal val progressWorkInfoItems: LiveData<List<WorkInfo>>
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
         outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+        progressWorkInfoItems = workManager.getWorkInfosByTagLiveData(TAG_PROGRESS)
     }
 
     internal fun cancelWork() {
@@ -84,6 +86,7 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
                 blurBuilder.setInputData(createInputDataForUri())
             }
 
+            blurBuilder.addTag(TAG_PROGRESS)
             continuation = continuation.then(blurBuilder.build())
         }
 
