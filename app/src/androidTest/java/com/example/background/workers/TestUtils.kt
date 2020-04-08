@@ -58,7 +58,7 @@ fun copyFileFromTestToTargetCtx(testCtx: Context, targetCtx: Context, filename: 
 }
 
 /**
- * Check if a file exist in the given context.
+ * Check if a file exists in the given context.
  * @param testCtx android test context
  * @param uri for the file
  * @return true if file exist, false if the file does not exist of the Uri is not valid
