@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import java.util.UUID
 @Throws(Exception::class)
 fun copyFileFromTestToTargetCtx(testCtx: Context, targetCtx: Context, filename: String): Uri {
     // Create test image
-    val destinationFilename = String.format("blur-test-%s.png", UUID.randomUUID().toString())
+    val destinationFilename = "blur-test-${UUID.randomUUID()}.png"
     val outputDir = File(targetCtx.filesDir, OUTPUT_PATH)
     if (!outputDir.exists()) {
         outputDir.mkdirs()

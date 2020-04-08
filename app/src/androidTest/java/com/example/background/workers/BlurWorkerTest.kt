@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ class BlurWorkerTest {
 
     @Test
     fun testFailsIfNoInput() {
-        // Define input data
+        // Do not define input data
 
         // Create request
         val request = OneTimeWorkRequestBuilder<BlurWorker>().build()
@@ -43,6 +43,7 @@ class BlurWorkerTest {
         // Enqueue and wait for result. This also runs the Worker synchronously
         // because we are using a SynchronousExecutor.
         wmRule.workManager.enqueue(request).result.get()
+
         // Get WorkInfo
         val workInfo = wmRule.workManager.getWorkInfoById(request.id).get()
 
@@ -68,6 +69,7 @@ class BlurWorkerTest {
         // Enqueue and wait for result. This also runs the Worker synchronously
         // because we are using a SynchronousExecutor.
         wmRule.workManager.enqueue(request).result.get()
+
         // Get WorkInfo
         val workInfo = wmRule.workManager.getWorkInfoById(request.id).get()
         val outputUri = workInfo.outputData.getString(KEY_IMAGE_URI)
