@@ -56,7 +56,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
             Result.success(outputData)
         } catch (throwable: Throwable) {
-            Timber.e(throwable)
+            Timber.e(throwable, "Error applying blur")
             Result.failure()
         }
     }
