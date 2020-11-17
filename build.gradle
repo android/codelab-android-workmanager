@@ -23,6 +23,7 @@ buildscript {
     versions.targetSdk = 29
     versions.kotlin = '1.4.10'
     versions.work = "2.4.0"
+    versions.room = '2.2.5'
 
     repositories {
         google()
