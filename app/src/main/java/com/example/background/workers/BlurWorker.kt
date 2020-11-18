@@ -21,7 +21,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.example.background.KEY_IMAGE_URI
@@ -35,7 +34,6 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, 
         val resourceUri = inputData.getString(KEY_IMAGE_URI)
 
         makeStatusNotification("Blurring image", applicationContext)
-        sleep()
 
         return try {
             if (resourceUri.isNullOrEmpty()) {
@@ -43,7 +41,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, 
                 throw IllegalArgumentException("Invalid input uri")
             }
 
-            val outputData = blurAndSaveImage(resourceUri)
+            val outputData = blurAndWriteImageToFile(resourceUri)
             recordImageSaved(resourceUri)
             Result.success(outputData)
         } catch (throwable: Throwable) {
@@ -57,7 +55,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, 
         imageDao.insert(BlurredImage(resourceUri))
     }
 
-    private fun blurAndSaveImage(resourceUri: String): Data {
+    private fun blurAndWriteImageToFile(resourceUri: String): Data {
         val resolver = applicationContext.contentResolver
 
         val picture = BitmapFactory.decodeStream(

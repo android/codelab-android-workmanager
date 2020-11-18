@@ -27,6 +27,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.example.background.workers.BlurWorker
 import com.example.background.workers.CleanupWorker
 import com.example.background.workers.SaveImageToFileWorker
@@ -46,18 +47,6 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
 
     internal fun cancelWork() {
         workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
-    }
-
-    /**
-     * Creates the input data bundle which includes the Uri to operate on
-     * @return Data which contains the Image Uri as a String
-     */
-    private fun createInputDataForUri(): Data {
-        val builder = Data.Builder()
-        imageUri?.let {
-            builder.putString(KEY_IMAGE_URI, imageUri.toString())
-        }
-        return builder.build()
     }
 
     /**
@@ -81,7 +70,8 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
             // After the first blur operation the input will be the output of previous
             // blur operations.
             if (i == 0) {
-                blurBuilder.setInputData(createInputDataForUri())
+                val data = workDataOf(KEY_IMAGE_URI to imageUri.toString())
+                blurBuilder.setInputData(data)
             }
 
             continuation = continuation.then(blurBuilder.build())
