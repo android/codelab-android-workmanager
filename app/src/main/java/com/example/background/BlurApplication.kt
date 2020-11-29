@@ -17,6 +17,7 @@
 package com.example.background
 
 import android.app.Application
+import androidx.viewbinding.BuildConfig
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
