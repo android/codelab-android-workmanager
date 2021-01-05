@@ -16,7 +16,7 @@ buildscript {
     versions.test_runner = "1.1.0-beta02"
     versions.timber = "4.7.1"
     versions.truth = "0.42"
-    versions.work = "2.1.0"
+    versions.work = "2.4.0"
 
     repositories {
         google()
