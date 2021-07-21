@@ -35,8 +35,6 @@ class BlurActivity : AppCompatActivity() {
         binding = ActivityBlurBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get the ViewModel
-
         binding.goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
 
         // Setup view output image file button

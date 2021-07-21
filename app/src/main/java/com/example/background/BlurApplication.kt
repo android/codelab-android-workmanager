@@ -21,6 +21,12 @@ import androidx.work.Configuration
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
+/**
+ * This is the Application class that's instantiated before any other class when the application is
+ * first created. Here we are using it to set configurations for WorkManager in order to see more
+ * verbose logging related to our work requests. Read more about custom WorkManager configuration
+ * here: https://developer.android.com/topic/libraries/architecture/workmanager/advanced/custom-configuration
+ */
 class BlurApplication() : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
@@ -32,12 +38,12 @@ class BlurApplication() : Application(), Configuration.Provider {
     override fun getWorkManagerConfiguration(): Configuration {
         return if (BuildConfig.DEBUG) {
             Configuration.Builder()
-                    .setMinimumLoggingLevel(android.util.Log.DEBUG)
-                    .build()
+                .setMinimumLoggingLevel(android.util.Log.DEBUG)
+                .build()
         } else {
             Configuration.Builder()
-                    .setMinimumLoggingLevel(android.util.Log.ERROR)
-                    .build()
+                .setMinimumLoggingLevel(android.util.Log.ERROR)
+                .build()
         }
     }
 
