@@ -18,8 +18,6 @@ package com.example.background
 
 import android.app.Application
 import androidx.work.Configuration
-import timber.log.Timber
-import timber.log.Timber.DebugTree
 
 /**
  * This is the Application class that's instantiated before any other class when the application is
@@ -30,9 +28,6 @@ import timber.log.Timber.DebugTree
 class BlurApplication() : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        }
     }
 
     override fun getWorkManagerConfiguration(): Configuration {

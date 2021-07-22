@@ -20,12 +20,13 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.text.TextUtils
+import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.example.background.KEY_IMAGE_URI
-import timber.log.Timber
 
+private const val TAG = "BlurWorker"
 class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
     override fun doWork(): Result {
@@ -40,7 +41,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
         return try {
             if (TextUtils.isEmpty(resourceUri)) {
-                Timber.e("Invalid input uri")
+                Log.e(TAG, "Invalid input uri")
                 throw IllegalArgumentException("Invalid input uri")
             }
 
@@ -58,7 +59,8 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
             Result.success(outputData)
         } catch (throwable: Throwable) {
-            Timber.e(throwable, "Error applying blur")
+            Log.e(TAG, "Error applying blur")
+            throwable.printStackTrace()
             Result.failure()
         }
     }

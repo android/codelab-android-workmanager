@@ -24,6 +24,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -39,7 +40,6 @@ import com.example.background.OUTPUT_PATH
 import com.example.background.R
 import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
 import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_NAME
-import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -55,6 +55,8 @@ import java.util.UUID
  * @param message Message shown on the notification
  * @param context Context needed to create Toast
  */
+
+private const val TAG = "WorkerUtils"
 fun makeStatusNotification(message: String, context: Context) {
 
     // Make a channel if necessary
@@ -93,7 +95,7 @@ fun sleep() {
     try {
         Thread.sleep(DELAY_TIME_MILLIS, 0)
     } catch (e: InterruptedException) {
-        Timber.e(e.message)
+        Log.e(TAG, e.message)
     }
 
 }
