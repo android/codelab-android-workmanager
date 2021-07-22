@@ -42,15 +42,7 @@ public class BlurActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Get the ViewModel
-        mViewModel = ViewModelProviders.of(this).get(BlurViewModel.class);
-
-        // Image uri should be stored in the ViewModel; put it there then display
-        Intent intent = getIntent();
-        String imageUriExtra = intent.getStringExtra(Constants.KEY_IMAGE_URI);
-        mViewModel.setImageUri(imageUriExtra);
-        if (mViewModel.getImageUri() != null) {
-            Glide.with(this).load(mViewModel.getImageUri()).into(binding.imageView);
-        }
+        mViewModel = new BlurViewModel(getApplication());
 
         // Setup blur image file button
         binding.goButton.setOnClickListener(view -> mViewModel.applyBlur(getBlurLevel()));

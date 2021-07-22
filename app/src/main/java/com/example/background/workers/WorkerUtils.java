@@ -92,7 +92,7 @@ final class WorkerUtils {
     }
 
     /**
-     * Method for sleeping for a fixed about of time to emulate slower work
+     * Method for sleeping for a fixed amount of time to emulate slower work
      */
     static void sleep() {
         try {

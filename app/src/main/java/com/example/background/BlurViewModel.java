@@ -17,11 +17,15 @@
 package com.example.background;
 
 import android.app.Application;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -29,15 +33,18 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
+
 import com.example.background.workers.BlurWorker;
 import com.example.background.workers.CleanupWorker;
 import com.example.background.workers.SaveImageToFileWorker;
+
 import java.util.List;
+
 import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
 import static com.example.background.Constants.TAG_OUTPUT;
 
-public class BlurViewModel extends AndroidViewModel {
+public class BlurViewModel extends ViewModel {
 
     private Uri mImageUri;
     private WorkManager mWorkManager;
@@ -46,8 +53,10 @@ public class BlurViewModel extends AndroidViewModel {
 
     // BlurViewModel constructor
     public BlurViewModel(@NonNull Application application) {
-        super(application);
+        super();
         mWorkManager = WorkManager.getInstance(application);
+
+        mImageUri = getImageUri(application.getApplicationContext());
 
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
@@ -56,8 +65,10 @@ public class BlurViewModel extends AndroidViewModel {
 
     /**
      * Getter method for mSavedWorkInfo
-      */
-    LiveData<List<WorkInfo>> getOutputWorkInfo() { return mSavedWorkInfo; }
+     */
+    LiveData<List<WorkInfo>> getOutputWorkInfo() {
+        return mSavedWorkInfo;
+    }
 
     /**
      * Setter method for mOutputUri
@@ -69,10 +80,13 @@ public class BlurViewModel extends AndroidViewModel {
     /**
      * Getter method for mOutputUri
      */
-    Uri getOutputUri() { return mOutputUri; }
+    Uri getOutputUri() {
+        return mOutputUri;
+    }
 
     /**
      * Create the WorkRequest to apply the blur and save the resulting image
+     *
      * @param blurLevel The amount to blur the image
      */
     void applyBlur(int blurLevel) {
@@ -90,7 +104,7 @@ public class BlurViewModel extends AndroidViewModel {
             // Input the Uri if this is the first blur operation
             // After the first blur operation the input will be the output of previous
             // blur operations.
-            if ( i == 0 ) {
+            if (i == 0) {
                 blurBuilder.setInputData(createInputDataForUri());
             }
 
@@ -123,6 +137,7 @@ public class BlurViewModel extends AndroidViewModel {
 
     /**
      * Creates the input data bundle which includes the Uri to operate on
+     *
      * @return Data which contains the Image Uri as a String
      */
     private Data createInputDataForUri() {
@@ -147,11 +162,17 @@ public class BlurViewModel extends AndroidViewModel {
         mImageUri = uriOrNull(uri);
     }
 
-    /**
-     * Getters
-     */
-    Uri getImageUri() {
-        return mImageUri;
+    private Uri getImageUri(Context context) {
+        Resources resources = context.getResources();
+
+        Uri imageUri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(resources.getResourcePackageName(R.drawable.android_cupcake))
+                .appendPath(resources.getResourceTypeName(R.drawable.android_cupcake))
+                .appendPath(resources.getResourceEntryName(R.drawable.android_cupcake))
+                .build();
+
+        return imageUri;
     }
 
 }
