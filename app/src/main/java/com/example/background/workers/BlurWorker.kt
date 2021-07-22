@@ -36,7 +36,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
         makeStatusNotification("Blurring image", appContext)
 
-        // This is an utility function added to emulator slower work.
+        // This is an utility function added to emulate slower work.
         sleep()
 
         return try {
