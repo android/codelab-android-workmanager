@@ -24,6 +24,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -39,12 +40,13 @@ import com.example.background.OUTPUT_PATH
 import com.example.background.R
 import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
 import com.example.background.VERBOSE_NOTIFICATION_CHANNEL_NAME
-import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.UUID
+
+private const val TAG = "WorkerUtils"
 
 /**
  * Create a Notification that is shown as a heads-up notification if possible.
@@ -87,13 +89,13 @@ fun makeStatusNotification(message: String, context: Context) {
 }
 
 /**
- * Method for sleeping for a fixed about of time to emulate slower work
+ * Method for sleeping for a fixed amount of time to emulate slower work
  */
 fun sleep() {
     try {
         Thread.sleep(DELAY_TIME_MILLIS, 0)
     } catch (e: InterruptedException) {
-        Timber.e(e.message)
+        Log.e(TAG, e.message)
     }
 
 }

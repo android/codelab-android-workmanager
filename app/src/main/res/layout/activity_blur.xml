@@ -30,10 +30,10 @@
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="400dp"
             android:contentDescription="@string/description_image"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/android_cupcake"/>
 
         <TextView
             android:id="@+id/filters_title"
@@ -43,7 +43,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
