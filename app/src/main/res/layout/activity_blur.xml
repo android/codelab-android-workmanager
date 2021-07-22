@@ -30,9 +30,10 @@
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="400dp"
             android:layout_weight="1"
             android:contentDescription="@string/description_image"
+            android:src="@drawable/android_cupcake"
             android:scaleType="fitCenter" />
 
         <TextView

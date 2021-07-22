@@ -17,17 +17,22 @@
 package com.example.background;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
+
 import android.app.Application;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class BlurViewModel extends AndroidViewModel {
+public class BlurViewModel extends ViewModel {
 
     private Uri mImageUri;
 
     public BlurViewModel(@NonNull Application application) {
-        super(application);
+        super();
+        mImageUri = getImageUri(application.getApplicationContext());
     }
 
     /**
@@ -45,11 +50,17 @@ public class BlurViewModel extends AndroidViewModel {
         return null;
     }
 
-    /**
-     * Setters
-     */
-    void setImageUri(String uri) {
-        mImageUri = uriOrNull(uri);
+    private Uri getImageUri(Context context) {
+        Resources resources = context.getResources();
+
+        Uri imageUri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(resources.getResourcePackageName(R.drawable.android_cupcake))
+                .appendPath(resources.getResourceTypeName(R.drawable.android_cupcake))
+                .appendPath(resources.getResourceEntryName(R.drawable.android_cupcake))
+                .build();
+
+        return imageUri;
     }
 
     /**
