@@ -62,9 +62,9 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:1.2.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    implementation "androidx.activity:activity-ktx:1.2.4"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.work:work-runtime-ktx:$versions.work"
     implementation "com.github.bumptech.glide:glide:4.12.0"
-    implementation "com.jakewharton.timber:timber:4.7.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }

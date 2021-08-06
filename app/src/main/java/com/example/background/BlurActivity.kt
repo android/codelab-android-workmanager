@@ -18,30 +18,23 @@ package com.example.background
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
 import com.example.background.databinding.ActivityBlurBinding
 
 class BlurActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: BlurViewModel
+    private val viewModel: BlurViewModel by viewModels {
+        BlurViewModel.BlurViewModelFactory(
+            application
+        )
+    }
     private lateinit var binding: ActivityBlurBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBlurBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Get the ViewModel
-        viewModel = ViewModelProviders.of(this).get(BlurViewModel::class.java)
-
-        // Image uri should be stored in the ViewModel; put it there then display
-        val imageUriExtra = intent.getStringExtra(KEY_IMAGE_URI)
-        viewModel.setImageUri(imageUriExtra)
-        viewModel.imageUri?.let { imageUri ->
-            Glide.with(this).load(imageUri).into(binding.imageView)
-        }
 
         binding.goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
     }
