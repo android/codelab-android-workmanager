@@ -18,18 +18,18 @@
 
 buildscript {
     ext.versions = [:]
-    versions.compileSdk = 29
+    versions.compileSdk = 31
     versions.minSdk = 16
-    versions.targetSdk = 29
-    versions.kotlin = '1.4.30'
-    versions.work = "2.5.0"
+    versions.targetSdk = 31
+    versions.kotlin = '1.6.10'
+    versions.work = "2.7.1"
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
 }
@@ -37,7 +37,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
