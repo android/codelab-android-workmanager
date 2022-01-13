@@ -4,17 +4,17 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -23,7 +23,7 @@ task clean(type: Delete) {
 }
 
 ext.versions = [:]
-versions.compileSdk = 29
+versions.compileSdk = 31
 versions.minSdk = 16
 versions.targetSdk = 29
-versions.work = "2.5.0"
+versions.work = "2.7.1"
