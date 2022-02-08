@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.1.1'
     }
 }
 
@@ -23,7 +23,7 @@ task clean(type: Delete) {
 }
 
 ext.versions = [:]
-versions.compileSdk = 31
+versions.compileSdk = 32
 versions.minSdk = 16
-versions.targetSdk = 29
+versions.targetSdk = 31
 versions.work = "2.7.1"
