@@ -19,8 +19,8 @@ package com.example.background
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.work.WorkInfo
 import com.example.background.databinding.ActivityBlurBinding
@@ -78,7 +78,7 @@ class BlurActivity : AppCompatActivity() {
 
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {
-                    viewModel.setOutputUri(outputImageUri as String)
+                    viewModel.setOutputUri(outputImageUri)
                     binding.seeFileButton.visibility = View.VISIBLE
                 }
             } else {
