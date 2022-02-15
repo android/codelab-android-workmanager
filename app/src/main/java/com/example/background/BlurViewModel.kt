@@ -23,9 +23,9 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.ExistingWorkPolicy
 import androidx.work.Constraints
 import androidx.work.Data
-import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
@@ -36,15 +36,14 @@ import com.example.background.workers.SaveImageToFileWorker
 
 class BlurViewModel(application: Application) : ViewModel() {
 
-    internal var imageUri: Uri? = null
+    private var imageUri: Uri? = null
     internal var outputUri: Uri? = null
     private val workManager = WorkManager.getInstance(application)
-    internal val outputWorkInfos: LiveData<List<WorkInfo>>
+    internal val outputWorkInfos: LiveData<List<WorkInfo>> = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
-        outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
         imageUri = getImageUri(application.applicationContext)
     }
 
@@ -118,14 +117,12 @@ class BlurViewModel(application: Application) : ViewModel() {
     private fun getImageUri(context: Context): Uri {
         val resources = context.resources
 
-        val imageUri = Uri.Builder()
+        return Uri.Builder()
             .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
             .authority(resources.getResourcePackageName(R.drawable.android_cupcake))
             .appendPath(resources.getResourceTypeName(R.drawable.android_cupcake))
             .appendPath(resources.getResourceEntryName(R.drawable.android_cupcake))
             .build()
-
-        return imageUri
     }
 
     internal fun setOutputUri(outputImageUri: String?) {
@@ -143,3 +140,4 @@ class BlurViewModelFactory(private val application: Application) : ViewModelProv
         }
     }
 }
+
