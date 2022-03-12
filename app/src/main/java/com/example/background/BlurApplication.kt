@@ -25,18 +25,12 @@ import android.util.Log.ERROR
 
 class BlurApplication() : Application(), Configuration.Provider {
 
-    override fun getWorkManagerConfiguration(): Configuration {
-        return if (BuildConfig.DEBUG) {
-            Configuration.Builder()
-                    .setMinimumLoggingLevel(DEBUG)
-                    .build()
-        } else {
-            Configuration.Builder()
-                    .setMinimumLoggingLevel(ERROR)
-                    .build()
-        }
-    }
-
+    override fun getWorkManagerConfiguration() = Configuration.Builder()
+        .setMinimumLoggingLevel(
+            if (BuildConfig.DEBUG) DEBUG
+            else ERROR
+        ).build()
+        
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
