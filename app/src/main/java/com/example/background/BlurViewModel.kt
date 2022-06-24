@@ -91,9 +91,7 @@ class BlurViewModel(application: Application) : ViewModel() {
         }
 
         // Create charging constraint
-        val constraints = Constraints.Builder()
-            .setRequiresCharging(true)
-            .build()
+        val constraints = Constraints( requiresCharging = true )
 
         // Add WorkRequest to save the image to the filesystem
         val save = OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
