@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     ext.versions = [:]
     versions.compileSdk = 32
     versions.minSdk = 16
     versions.targetSdk = 31
-    versions.kotlin = '1.6.10'
-    versions.work = "2.7.1"
+    versions.kotlin = '1.7.0'
+    versions.work = "2.8.0-alpha02"
 
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath 'com.android.tools.build:gradle:7.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
 }
