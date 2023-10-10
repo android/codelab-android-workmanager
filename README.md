@@ -35,6 +35,8 @@ Otherwise, you may have to wait for a while until all the updates are done.
 
 * A device or emulator that runs API level 16+
 
+* Make sure notification on your device/emulator are active.
+
 You need to be solidly familiar with the Kotlin programming language,
 object-oriented design concepts, and Android Development Fundamentals.
 In particular:
