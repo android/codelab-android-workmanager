@@ -18,23 +18,70 @@
 
 package com.example.background
 
-// Notification Channel constants
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
+import android.util.Log
 
-// Name of Notification Channel for verbose notifications of background work
-@JvmField val VERBOSE_NOTIFICATION_CHANNEL_NAME: CharSequence =
-        "Verbose WorkManager Notifications"
-const val VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION =
-        "Shows notifications whenever work starts"
-@JvmField val NOTIFICATION_TITLE: CharSequence = "WorkRequest Starting"
-const val CHANNEL_ID = "VERBOSE_NOTIFICATION"
-const val NOTIFICATION_ID = 1
+// Notification Channels
 
-// The name of the image manipulation work
-const val IMAGE_MANIPULATION_WORK_NAME = "image_manipulation_work"
+object NotificationChannels {
+    // Name and description of the verbose notification channel
+    @JvmField val VERBOSE_CHANNEL_NAME: CharSequence = "Verbose WorkManager Notifications"
+    const val VERBOSE_CHANNEL_DESCRIPTION = "Shows notifications whenever work starts"
+    const val VERBOSE_CHANNEL_ID = "VERBOSE_NOTIFICATION"
+    const val VERBOSE_NOTIFICATION_ID = 1
 
-// Other keys
-const val OUTPUT_PATH = "blur_filter_outputs"
-const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
-const val TAG_OUTPUT = "OUTPUT"
+    // Name and description of the error notification channel
+    @JvmField val ERROR_CHANNEL_NAME: CharSequence = "Error Notifications"
+    const val ERROR_CHANNEL_DESCRIPTION = "Shows notifications for errors during background work"
+    const val ERROR_CHANNEL_ID = "ERROR_NOTIFICATION"
+    const val ERROR_NOTIFICATION_ID = 2
+}
 
-const val DELAY_TIME_MILLIS: Long = 3000
+// Work Names
+
+object WorkNames {
+    const val IMAGE_MANIPULATION = "image_manipulation_work"
+    const val DATA_PROCESSING = "data_processing_work"
+}
+
+// Output Paths and Keys
+
+object OutputKeys {
+    const val OUTPUT_PATH = "blur_filter_outputs"
+    const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
+    const val TAG_OUTPUT = "OUTPUT"
+    const val PROCESSING_STATUS = "PROCESSING_STATUS"
+}
+
+// Timing Constants
+
+object TimingConstants {
+    const val DELAY_TIME_MILLIS: Long = 3000
+    const val RETRY_DELAY_TIME_MILLIS: Long = 5000
+}
+
+// Utility functions for Notification Channels
+
+/**
+ * Creates a notification channel if the Android version is Oreo or higher.
+ */
+fun createNotificationChannel(context: Context, id: String, name: CharSequence, description: String) {
+    // Check if the device is running Android Oreo or higher
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT).apply {
+            this.description = description
+        }
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+}
+
+/**
+ * Logs notification creation.
+ */
+fun logNotificationCreation(id: String) {
+    Log.d("NotificationManager", "Notification channel created with ID: $id")
+}
