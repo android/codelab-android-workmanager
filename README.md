@@ -1,3 +1,8 @@
+> [!CAUTION]
+> This codelab is deprecated and will be removed soon.
+>
+> Please see https://github.com/google-developer-training/basic-android-kotlin-compose-training-workmanager
+
 WorkManager Codelab
 ===================================
 
